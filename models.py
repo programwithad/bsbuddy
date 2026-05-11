@@ -32,6 +32,9 @@ class Message(Base):
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=False)
     sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     content = Column(Text, nullable=False)
+    reply_to_id = Column(Integer, ForeignKey("messages.id"), nullable=True)
+    file_url = Column(String(500), nullable=True)
+    file_type = Column(String(50), nullable=True)  # "image" or "file"
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -41,4 +44,7 @@ class DirectMessage(Base):
     sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     receiver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     content = Column(Text, nullable=False)
+    reply_to_id = Column(Integer, ForeignKey("direct_messages.id"), nullable=True)
+    file_url = Column(String(500), nullable=True)
+    file_type = Column(String(50), nullable=True)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
